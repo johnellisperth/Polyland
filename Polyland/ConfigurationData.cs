@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Polyland
@@ -93,6 +94,7 @@ namespace Polyland
             }
         }
 
+       
         /// <summary>
         /// Check Polygons from 3-sides to LargestPolygonSize
         /// This can take some time

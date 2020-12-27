@@ -25,25 +25,29 @@ namespace Polyland
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             int value = _data.LargestPolygonSize;
             if (value>=3 && value<=ConfigurationData.LargestPossiblePolygonSize)
             {
-                LargestPolygonTextBox.IsEnabled = false;
-                StartButton.IsEnabled = false;
-
-                await Task.Run(() => _data.CheckPolygons());
-
-                MessageBox.Show(string.Format("Found {0} polygons with metalllic ratios", _data.MetallicPolygons.Count));
-                StartButton.IsEnabled = true;
-                LargestPolygonTextBox.IsEnabled = true;
+                CalculateAync();
             }
             else
             {
                 MessageBox.Show(string.Format("{0} is not between 3 & {1}", value, ConfigurationData.LargestPossiblePolygonSize));
             }
         }
+
+        public async void CalculateAync()
+        {
+            LargestPolygonTextBox.IsEnabled = false;
+            StartButton.IsEnabled = false;
+            await Task.Run(() => _data.CheckPolygons());
+            MessageBox.Show(string.Format("Found {0} polygons with metalllic ratios", _data.MetallicPolygons.Count));
+            StartButton.IsEnabled = true;
+            LargestPolygonTextBox.IsEnabled = true;
+        }
+
 
     }
 }

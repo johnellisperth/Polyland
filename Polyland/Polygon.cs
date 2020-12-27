@@ -23,6 +23,7 @@ namespace Polyland
             Vertices = new List<Point2D>();
             MetallicRatios = new List<MetallicRatio>();
             _distances = new List<double>();
+
             if (number > 2)//only bother creating a polygon with 3 or more sides
             {
                 int radius = 50;
@@ -45,6 +46,7 @@ namespace Polyland
                 double epsilon = 0.000000001;
 
                 //work out ratios
+                //k =1 = golden ratio; 2=silver ratio
                 for (int k = 1; k < 3; k++)
                 {
                     double metallicRatio = GetMetallicRatio(k);
@@ -52,7 +54,7 @@ namespace Polyland
                     {
                         for (int m = n; m < _distances.Count; m++)
                         {
-                            double ratio = _distances[m] / _distances[n];
+                            double ratio = _distances[n]> epsilon ? _distances[m] / _distances[n] : 0;
                             if (Math.Abs(ratio - metallicRatio) < epsilon)//Equals not good enough!
                             {
                                 MetallicRatios.Add(new MetallicRatio()
